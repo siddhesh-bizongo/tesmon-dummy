@@ -1,0 +1,34 @@
+taskActions:
+  - id: getReq
+    type: httpClient
+    value:
+      method: GET
+      fullUrl: https://www.google.com
+
+scripts:
+  - id: validateHttpOk
+    value: |-
+      def validateHttpOk(context):
+        output = context["last_output"]
+        assert output["statusCode"] == 200
+
+# beforeAll / afterAll
+tests:
+  - id: helloworld
+    name: This is a hello world integration test
+    tasks:
+      - id: getReq
+        type: httpClient
+        action: taskActions.getReq
+        validate: scripts.validateHttpOk
+
+
+collections:
+  - id: smokeTests
+    tests:
+      - getReq
+      - restaurantOrderTest
+    beforeAll:
+      - register
+    afterAll:
+      - deleteAccount
