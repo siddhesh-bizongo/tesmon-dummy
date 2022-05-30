@@ -27,7 +27,3 @@ collections:
   - id: smokeTests
     tests:
       - helloworld
-    beforeAll:
-      - register
-    afterAll:
-      - deleteAccount
